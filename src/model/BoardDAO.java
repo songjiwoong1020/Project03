@@ -139,5 +139,34 @@ public class BoardDAO {
 		return bbs;
 		
 	}
+	//게시물 상세보기를 위해 필요
+	public BoardDTO selectView(String num){
+		BoardDTO dto = new BoardDTO();
+		String query = "SELECT * FROM membership WHERE idx = ? ";
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, num);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				dto.setIdx(rs.getString("idx"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setPostdate(rs.getString("postdate"));
+				dto.setId(rs.getString("id"));
+				dto.setVisitcount(rs.getString("visitcount"));
+				dto.setBname(rs.getString("bname"));
+				dto.setOfile(rs.getString("ofile"));
+				dto.setSfile(rs.getString("sfile"));
+				
+			}
+		}
+		catch(Exception e) {
+			System.out.println("상세보기시 예외발생");
+			e.printStackTrace();
+		}
+		
+		return dto;
+		
+	}
 
 }

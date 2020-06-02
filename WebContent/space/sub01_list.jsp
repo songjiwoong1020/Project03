@@ -132,7 +132,12 @@ dao.close();
 	%>
 			<tr>
 				<td class="text-center"><%=vNum %></td>
-				<td class="text-left"><a href="sub01_view.jsp"><%=dto.getTitle() %></a></td>
+				<td class="text-left">
+					<a href="sub01_view.jsp?idx=<%=dto.getIdx()%>
+					&nowPage=<%=nowPage%>&<%=queryStr%>">
+					<%=dto.getTitle() %>
+					</a>
+				</td>
 				<td class="text-center"><%=dto.getId() %></td>
 				<td class="text-center"><%=dto.getPostdate().substring(0, 10)%></td>
 				<td class="text-center"><%=dto.getVisitcount() %></td>

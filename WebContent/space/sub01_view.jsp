@@ -1,8 +1,32 @@
+<%@page import="model.BoardDAO"%>
+<%@page import="model.BoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/global_head.jsp" %>
+<%@ include file="isFlag.jsp" %>
 
+<%
+String queryStr = "bname=" + bname + "&";
+String searchColumn = request.getParameter("searchColumn");
+String searchWord = request.getParameter("searchWord");
+if(searchWord != null){
+	queryStr += "searchColumn=" + searchColumn + "&searchWord=" + searchWord + "&";
+}
+String nowPage = request.getParameter("nowPage");
+if(nowPage == null || nowPage.equals("")){
+	nowPage = "1";
+}
+queryStr += "&nowPage=" + nowPage;
 
+String idx = request.getParameter("idx");
+BoardDAO dao = new BoardDAO(application);
+
+//dao.updateVisitCount(num);
+
+BoardDTO dto = dao.selectView(idx);
+
+dao.close();
+%>
  <body>
 	<center>
 	<div id="wrap">
@@ -16,8 +40,8 @@
 			</div>
 			<div class="right_contents">
 				<div class="top_title">
-					<img src="../images/space/sub01_title.gif" alt="공지사항" class="con_title" />
-					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;공지사항<p>
+					<img src="<%=imgSrc %>" alt="<%=boardTitle %>" class="con_title" />
+					<p class="location"><img src="../images/center/house.gif" />&nbsp;&nbsp;열린공간&nbsp;>&nbsp;<%=boardTitle %><p>
 				</div>
 				<div>
 
@@ -34,49 +58,46 @@
 		<th class="text-center" 
 			style="vertical-align:middle;">작성자</th>
 		<td>
-			홍길동
+			<%=dto.getId() %>
 		</td>
 		<th class="text-center" 
 			style="vertical-align:middle;">작성일</th>
 		<td>
-			2018-01-05
+			<%=dto.getPostdate() %>
 		</td>
 	</tr>
 	<tr>
 		<th class="text-center" 
 			style="vertical-align:middle;">이메일</th>
 		<td>
-			nakjasabal@naver.com
+
 		</td>
 		<th class="text-center" 
 			style="vertical-align:middle;">조회수</th>
 		<td>
-			100
+			<%=dto.getVisitcount() %>
 		</td>
 	</tr>
 	<tr>
 		<th class="text-center" 
 			style="vertical-align:middle;">제목</th>
 		<td colspan="3">
-			제목영역입니다.
+			<%=dto.getTitle() %>
 		</td>
 	</tr>
 	<tr>
 		<th class="text-center" 
 			style="vertical-align:middle;">내용</th>
 		<td colspan="3">
-			내용영역입니다<br/>
-			내용영역입니다<br/>
-			내용영역입니다<br/>
-			내용영역입니다<br/>
-			내용영역입니다<br/>
+			<%-- <%=dto.getContent().replace("\r\n", "<br/>") %> --%>
+			
 		</td>
 	</tr>
 	<tr>
 		<th class="text-center" 
 			style="vertical-align:middle;">첨부파일</th>
 		<td colspan="3">
-			파일명.jpg
+			<%=dto.getOfile() %>
 		</td>
 	</tr>
 </tbody>
