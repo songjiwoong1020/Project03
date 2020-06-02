@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>Project3</display-name>
+	
+  <!-- MaraiDB 정보 -->  
+  <context-param>
+  	<param-name>MariaJDBCDriver</param-name>
+  	<param-value>org.mariadb.jdbc.Driver</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>MariaConnectURL</param-name>
+  	<param-value>jdbc:mariadb://127.0.0.1:3306/suamil_db</param-value>
+  </context-param>
+  
+
+
+  <!-- admin 메인 매핑 -->
+  <servlet>
+  	<servlet-name>AdminMainController</servlet-name>
+  	<servlet-class>controller.AdminMainCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AdminMainController</servlet-name>
+  	<url-pattern>/admin/main/adminMain.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- admin 로그인 매핑 -->
+  <servlet>
+  	<servlet-name>AdminLoginController</servlet-name>
+  	<servlet-class>controller.AdminLoginCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AdminLoginController</servlet-name>
+  	<url-pattern>/admin/common/adminLogin.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- admin 회원테이블 매핑 -->
+  <servlet>
+  	<servlet-name>AdminMemberController</servlet-name>
+  	<servlet-class>controller.AdminMemberCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AdminMemberController</servlet-name>
+  	<url-pattern>/admin/tables/memberTable.do</url-pattern>
+  </servlet-mapping>
+
+  <!-- admin 모든게시판테이블 매핑 -->
+  <servlet>
+  	<servlet-name>AdminAllBoardController</servlet-name>
+  	<servlet-class>controller.AdminAllboardCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AdminAllBoardController</servlet-name>
+  	<url-pattern>/admin/tables/allBoardTable.do</url-pattern>
+  </servlet-mapping>
+  <!-- ////////////////////////구분///////////////////////////// -->
+  
+  <!-- 메인화면 매핑 -->
+  <servlet>
+  	<servlet-name>MainController</servlet-name>
+  	<servlet-class>controller.MainCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>MainController</servlet-name>
+  	<url-pattern>/main/main.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 아이디 중복체크 -->
+  <servlet>
+  	<servlet-name>IdDoubleCheckController</servlet-name>
+  	<servlet-class>controller.IdDoubleCheckCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>IdDoubleCheckController</servlet-name>
+  	<url-pattern>/member/idDoubleCheck.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 회원 가입 처리 -->
+  <servlet>
+  	<servlet-name>SignUpController</servlet-name>
+  	<servlet-class>controller.SignUpCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>SignUpController</servlet-name>
+  	<url-pattern>/member/signUp.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 로그인 매핑 -->
+  <servlet>
+  	<servlet-name>LoginController</servlet-name>
+  	<servlet-class>controller.LoginCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LoginController</servlet-name>
+  	<url-pattern>/main/Login.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 아이디 찾기 매핑 -->
+  <servlet>
+  	<servlet-name>FindIdController</servlet-name>
+  	<servlet-class>controller.FindIdCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>FindIdController</servlet-name>
+  	<url-pattern>/member/FindId.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 비밀번호 찾기 매핑 -->
+  <servlet>
+  	<servlet-name>FindPassController</servlet-name>
+  	<servlet-class>controller.FindPassCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>FindPassController</servlet-name>
+  	<url-pattern>/member/FindPass.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
