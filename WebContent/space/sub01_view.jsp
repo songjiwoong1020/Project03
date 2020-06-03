@@ -21,7 +21,7 @@ queryStr += "&nowPage=" + nowPage;
 String idx = request.getParameter("idx");
 BoardDAO dao = new BoardDAO(application);
 
-//dao.updateVisitCount(num);
+dao.updateVisitCount(idx);
 
 BoardDTO dto = dao.selectView(idx);
 
@@ -69,9 +69,8 @@ dao.close();
 	<tr>
 		<th class="text-center" 
 			style="vertical-align:middle;">이메일</th>
-			<%=dto.getEmail() %>
 		<td>
-
+			<%=dto.getEmail() %>
 		</td>
 		<th class="text-center" 
 			style="vertical-align:middle;">조회수</th>
@@ -110,7 +109,8 @@ dao.close();
 	if(session.getAttribute("USER_ID") != null &&
 	session.getAttribute("USER_ID").toString().equals(dto.getId())){
 	%>
-	<button type="button" class="btn btn-primary">수정하기</button>
+	<button type="button" class="btn btn-primary"
+		onclick="location.href='sub01_edit.jsp?idx=<%=dto.getIdx()%>&bname=<%=bname %>';">수정하기</button>
 	<button type="button" class="btn btn-success" onclick="isDelete();">삭제하기</button>	
 	<%
 	}

@@ -6,8 +6,7 @@
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%
-
-String path = "C:/03Workspace/Project03/WebContent/common/se2/upload"; // 이미지가 저장될 주소
+String path = "C:/jiwoong/newwokrspace/Project03/WebContent/common/se2/upload"; // 이미지가 저장될 주소
 String filename = "";
 
 if(request.getContentLength() > 10*1024*1024 ){

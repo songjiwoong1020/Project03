@@ -3,12 +3,15 @@
 <%@ include file="../include/isLogin.jsp" %>
 <%@ include file="../include/isFlag.jsp" %>
 <%@ include file="../include/global_head.jsp" %>
-<script src="../common/jquery/jquery-3.5.1.js"></script>
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <body>
-<!-- Smart Editor -->
-<script type="text/javascript" src="<%=request.getContextPath()%>/common/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/common/se2/photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"></script>
 	<!-- <center> -->
 	<div id="wrap">
 		<%@ include file="../include/top.jsp" %>
@@ -26,7 +29,7 @@
 				</div>
 				<div>
 
-<form action="WriteProc.jsp" name="writeFrm" method="get"  >
+<form action="WriteProc.jsp" name="writeFrm" method="post"  >
 	<input type="hidden" name="bname" value="<%=bname%>"/>
 <table class="table table-bordered">
 <colgroup>
@@ -40,13 +43,13 @@
 		<td>
 			<input type="text" class="form-control" name="title" />
 		</td>
-	</tr>
+	</tr> 
 	<tr>
 		<th class="text-center" 
 			style="vertical-align:middle;">내용</th>
 		<td>
+			<textarea id="summernote" name="content">Hello Summernote</textarea>
 			<!-- <textarea rows="10" class="form-control" name="content"></textarea> -->
-			<textarea style="width: 100%;" rows="10" name="content" id="content" cols="80"></textarea>
 		</td>
 	</tr>
 	<tr>
@@ -62,49 +65,11 @@
 <div class="row text-center" style="">
 	<!-- 각종 버튼 부분 -->
 	
-	<button type="submit" id="submit" class="btn btn-danger" >전송하기</button>
+	<button type="submit" class="btn btn-danger" >전송하기</button>
 	<button type="reset" class="btn">Reset</button>
 	<button type="button" class="btn btn-warning"  onclick="location.href='sub01_list.jsp?bname=<%=bname %>';">리스트보기</button>
 </div>
 </form>
-	<script>
-	
-	var oEditors = [];
-	
-	$(function(){
-	nhn.husky.EZCreator.createInIFrame({
-	    oAppRef: oEditors,
-	    elPlaceHolder: "content",
-	    sSkinURI: "<%=request.getContextPath()%>/common/se2/SmartEditor2Skin.html",
-	    fCreator: "createSEditor2"
-	});
-		
-		$("#submit").click(function(){
-			console.log($("#content"));
-			console.log($("#content").val());
-			console.log($("textarea").val());
-			console.log($("textarea"));
-			
-			if($("input[type='text'][name='title']").val()== ""){
-				alert('제목을 입력하세요');
-				$("input[type='text'][name='title']").focus();
-				return false;
-			}
-			if($("#content").val()== ""){
-				alert('내용을 입력하세요');
-				$("#content").focus();
-				return false;
-			}
-			oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
-		});
-	});
-	    
-	function pasteHTML(filepath){
-	    var sHTML = '<img src="<%=request.getContextPath()%>/WebContent/common/se2/upload/'+filepath+'">';
-	    oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
-	}
-	</script>
-
 				</div>
 			</div>
 		</div>
@@ -114,6 +79,26 @@
 
 	<%@ include file="../include/footer.jsp" %>
 	</center>
-
- </body>
+<script>
+$(function(){
+	  $('#summernote').summernote({
+		  height: 300,
+		  minHeight: null,
+		  maxHeight: null,
+		  lang : 'ko-KR'
+	  });
+	  $("button[type='submit']").click(function(){
+		  if($('input[name=title]').val() == ""){
+			  alert('제목을 작성해주세요');
+			  $('input[name=title]').focus();
+			  return false;
+		  }
+		  if($('textarea').val() == ""){
+			  alert('내용을 작성해주세요');
+			  $('textarea').focus();
+			  return false;
+		  }
+	  });
+});
+</script>
 </html>

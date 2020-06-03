@@ -143,13 +143,13 @@ public class BoardDAO {
 		
 	}
 	//게시물 상세보기를 위해 필요
-	public BoardDTO selectView(String num){
+	public BoardDTO selectView(String idx){
 		BoardDTO dto = new BoardDTO();
 		String query = "SELECT B.*, M.email FROM membership M "
 				+ " INNER JOIN multi_board B ON M.id = B.id WHERE idx = ?"; 
 		try {
 			psmt = con.prepareStatement(query);
-			psmt.setString(1, num);
+			psmt.setString(1, idx);
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				dto.setIdx(rs.getString("idx"));
@@ -211,6 +211,41 @@ public class BoardDAO {
 		}
 		catch(Exception e) {
 			System.out.println("BoardDAO insertWrite함수에서 예외발생");
+			e.printStackTrace();
+		}
+		
+		return affected;
+	}
+	
+	//일련번호 num에 해당하는 게시물의 조회수 증가
+	public void updateVisitCount(String idx) {
+		
+		String query = "UPDATE multi_board SET visitcount = visitcount + 1 WHERE idx = ?";
+		try {
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, idx);
+			psmt.executeQuery();
+		}
+		catch (Exception e) {
+			System.out.println("BoardDAO updateVisitCount함수에서 예외발생");
+			e.printStackTrace();
+		}
+	}
+	
+	public int updateEdit(BoardDTO dto) {
+		int affected = 0;
+		try {
+			String query = "UPDATE multi_board SET title = ?, content = ? WHERE idx = ?";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getContent());
+			psmt.setString(3, dto.getIdx());
+			
+			affected = psmt.executeUpdate();
+		}
+		catch (Exception e) {
+			System.out.println("BoardDAO updateEdit함수에서 예외발생");
 			e.printStackTrace();
 		}
 		

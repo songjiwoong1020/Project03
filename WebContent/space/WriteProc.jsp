@@ -10,8 +10,6 @@ request.setCharacterEncoding("UTF-8");
 String title = request.getParameter("title");
 String content = request.getParameter("content");
 
-System.out.println(content);
-
 BoardDTO dto = new BoardDTO();
 dto.setTitle(title);
 dto.setContent(content);
