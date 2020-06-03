@@ -61,8 +61,10 @@ public class SignUpCtrl extends HttpServlet{
 		if(result == 1) {
 			HttpSession session=req.getSession();
 			session.setAttribute("SUCCESS_SIGNUP", "<script>alert('회원가입이 완료 되었습니다!');</script>");
+			dao.close();
 			resp.sendRedirect("../main/main.do");
 		} else {
+			dao.close();
 			req.getRequestDispatcher("/member/join02.jsp").forward(req, resp);
 		}
 		

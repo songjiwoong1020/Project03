@@ -34,6 +34,7 @@ public class LoginCtrl extends HttpServlet{
 			
 			System.out.println("로그인실패-아이디 비밀번호 불일치(여긴 LoginCtrl서블렛)");
 			req.setAttribute("LOGIN_FAIL", "<script>alert('아이디와 비밀번호를 확인하세요');</script>");
+			dao.close();
 			req.getRequestDispatcher("/member/login.jsp").forward(req, resp);
 		} else {
 			session.setAttribute("USER_ID", memberInfo.get("id"));
@@ -42,6 +43,7 @@ public class LoginCtrl extends HttpServlet{
 			session.setAttribute("USER_LV", memberInfo.get("memberlv"));
 			
 			System.out.println(memberInfo.get("id") + "로그인 성공(여긴 LoginCtrl서블렛)");
+			dao.close();
 			req.getRequestDispatcher("/main/main.do").forward(req, resp);
 		}
 	

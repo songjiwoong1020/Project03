@@ -8,7 +8,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../include/global_head.jsp" %>
-<%@ include file="isFlag.jsp" %>
+<%@ include file="../include/isFlag.jsp" %>
 <%
 request.setCharacterEncoding("UTF-8");
 
@@ -154,7 +154,7 @@ dao.close();
 	<!-- <button type="reset" class="btn">Reset</button> -->
 		
 	<button type="button" class="btn btn-primary" 
-		onclick="location.href='sub01_write.jsp';">글쓰기</button>
+		onclick="location.href='sub01_write.jsp?bname=<%=bname %>';">글쓰기</button>
 				
 	<!-- <button type="button" class="btn btn-primary">수정하기</button>
 	<button type="button" class="btn btn-success">삭제하기</button>

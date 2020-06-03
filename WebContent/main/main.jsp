@@ -14,7 +14,6 @@
 <!-- 
 	메인화면에서 회원가입 성공시 세션영역에 SUCCESS_SIGNUP이라는 키값으로 경고창을 저장한다.
 	세션영역이기때문에 한번 실행하면 지워줘야하니까 SUCCESS_SIGNUP이 빈값이 아닐때 지워준다.
-	!세션에서 키값으로 저장한게 jstl에서 변수명으로 취급되는지에 대해서는 아직 확실히 알지 못한다.
 -->
 <c:out value="${sessionScope.SUCCESS_SIGNUP }" escapeXml="false" />
 <c:if test="${not empty sessionScope.SUCCESS_SIGNUP }">
@@ -52,7 +51,7 @@
 									</tr>
 									<tr>
 										<th><img src="../images/login_tit02.gif" alt="패스워드" /></th>
-										<td><input type="text" name="inputPassword" value="" class="login_input" /></td>
+										<td><input type="password" name="inputPassword" value="" class="login_input" /></td>
 									</tr>
 								</table>
 							</form>

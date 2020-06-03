@@ -39,7 +39,7 @@ public class PagingUtil {
 			pagingStr += "<a href='" + pageName + "nowPage=" + totalPage
 					+ "'> <img src='../images/paging4.gif'></a>";
 		}
-		System.out.println("pagingStr=" + pagingStr);
+		//System.out.println("pagingStr=" + pagingStr);
 		
 		return pagingStr;
 	}
@@ -83,7 +83,7 @@ public class PagingUtil {
 		}
 		pagingStr += "</ul>";
 		
-		System.out.println("pagingStr=" + pagingStr);
+		//System.out.println("pagingStr=" + pagingStr);
 		
 		return pagingStr;
 	}

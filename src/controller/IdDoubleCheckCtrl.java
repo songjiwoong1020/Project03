@@ -55,6 +55,7 @@ public class IdDoubleCheckCtrl extends HttpServlet{
 				out.print(object);
 				out.flush();
 			}
+			dao.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

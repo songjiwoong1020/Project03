@@ -25,7 +25,7 @@
 					<form action="../main/Login.do">
 						<ul>
 							<li><img src="../images/login_tit001.gif" alt="아이디" style="margin-right:15px;" /><input type="text" name="inputId" value="" class="login_input01" /></li>
-							<li><img src="../images/login_tit002.gif" alt="비밀번호" style="margin-right:15px;" /><input type="text" name="inputPassword" value="" class="login_input01" /></li>
+							<li><img src="../images/login_tit002.gif" alt="비밀번호" style="margin-right:15px;" /><input type="password" name="inputPassword" value="" class="login_input01" /></li>
 						</ul>
 						<input type="image" src="../images/login_btn.gif" class="login_btn01"></input>
 					</form>

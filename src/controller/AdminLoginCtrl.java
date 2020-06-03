@@ -34,6 +34,7 @@ public class AdminLoginCtrl extends HttpServlet{
 			System.out.println("로그인실패-아이디 비밀번호 불일치(여긴 AdminLoginCtrl서블렛)");
 			//req.setAttribute("LOGIN_FAIL", "<div style=\"font-size: 1.5em; color: red;\">아이디와 비밀번호를 확인하세요</div>");
 			req.setAttribute("LOGIN_FAIL", "<script>alert('아이디와 비밀번호를 확인하세요');</script>");
+			dao.close();
 			req.getRequestDispatcher("/admin/common/login.jsp").forward(req, resp);
 			
 			
@@ -44,6 +45,7 @@ public class AdminLoginCtrl extends HttpServlet{
 				System.out.println("로그인실패-관리자 권한이 아닌 계정(여긴 AdminLoginCtrl서블렛)");
 				//req.setAttribute("LOGIN_FAIL", "<div style=\\\"font-size: 1.5em; color: red;\\\">관리자 권한이 없는 계정입니다.</div>");
 				req.setAttribute("LOGIN_FAIL", "<script>alert('관리자 권한이 없는 계정입니다.');</script>");
+				dao.close();
 				req.getRequestDispatcher("/admin/common/login.jsp").forward(req, resp);
 				
 			} else {
@@ -54,6 +56,7 @@ public class AdminLoginCtrl extends HttpServlet{
 				session.setAttribute("USER_LV", memberInfo.get("memberlv"));
 				
 				System.out.println(memberInfo.get("id") + "로그인 성공(여긴 AdminLoginCtrl서블렛)");
+				dao.close();
 				req.getRequestDispatcher("/admin/main/adminMain.jsp").forward(req, resp);
 			}
 		}

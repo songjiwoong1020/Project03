@@ -37,6 +37,7 @@ public class FindIdCtrl extends HttpServlet{
 			object.put("findIdResult", result);
 			out.print(object);
 			out.flush();
+			dao.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

@@ -24,7 +24,7 @@ public class MembershipDAO {
 			String id = "suamil_user";
 			String pw = "1234";
 			con = DriverManager.getConnection(ctx.getInitParameter("MariaConnectURL"), id, pw);
-			System.out.println("MariaDB연결 성공");
+			//System.out.println("MariaDB연결 성공");
 		}
 		catch(Exception e) {
 			System.out.println("MariaDB연결 실패");
@@ -37,7 +37,7 @@ public class MembershipDAO {
 			if(rs != null) rs.close();
 			if(psmt != null) psmt.close();
 			if(con != null) con.close();
-			System.out.println("DB자원반납");
+			//System.out.println("DB자원반납");
 		}
 		catch (Exception e) {
 			System.out.println("자원반납시 예외발생");
@@ -70,7 +70,7 @@ public class MembershipDAO {
 			}
 		}
 		catch(Exception e) {
-			System.out.println("Select시 예외발생");
+			System.out.println("MembershipDAO List 함수에서 예외발생");
 			e.printStackTrace();
 		}
 		
@@ -104,7 +104,7 @@ public class MembershipDAO {
 			}
 		}
 		catch(Exception e) {
-			System.out.println("login처리시 쿼리오류");
+			System.out.println("MembershipDAO login 함수에서 에러발생");
 			e.printStackTrace();
 		}
 		
@@ -127,7 +127,7 @@ public class MembershipDAO {
 			}
 		}
 		catch(Exception e) {
-			System.out.println("login중복 처리시 쿼리오류");
+			System.out.println("MembershipDAO idDoubleCheck함수에서 예외발생");
 			e.printStackTrace();
 		}
 		return false;
@@ -166,7 +166,7 @@ public class MembershipDAO {
 			affected = psmt.executeUpdate();
 		}
 		catch(Exception e) {
-			System.out.println("insert중 에러발생");
+			System.out.println("MembershipDAO signUp함수에서 예외발생");
 			e.printStackTrace();
 		}
 		
@@ -193,7 +193,7 @@ public class MembershipDAO {
 			}
 		}
 		catch(Exception e) {
-			System.out.println("아이디 찾기 처리시 쿼리오류");
+			System.out.println("MembershipDAO findId함수에서 예외발생");
 			e.printStackTrace();
 		}
 		return "";
@@ -220,7 +220,7 @@ public class MembershipDAO {
 			}
 		}
 		catch(Exception e) {
-			System.out.println("아이디 찾기 처리시 쿼리오류");
+			System.out.println("MembershipDAO findPass함수에서 예외발생");
 			e.printStackTrace();
 		}
 		return "";

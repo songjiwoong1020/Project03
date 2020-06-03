@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/global_head.jsp" %>
-<%@ include file="isFlag.jsp" %>
+<%@ include file="../include/isFlag.jsp" %>
 
 <%
 String queryStr = "bname=" + bname + "&";
@@ -69,6 +69,7 @@ dao.close();
 	<tr>
 		<th class="text-center" 
 			style="vertical-align:middle;">이메일</th>
+			<%=dto.getEmail() %>
 		<td>
 
 		</td>
@@ -89,7 +90,7 @@ dao.close();
 		<th class="text-center" 
 			style="vertical-align:middle;">내용</th>
 		<td colspan="3">
-			<%-- <%=dto.getContent().replace("\r\n", "<br/>") %> --%>
+			<%=dto.getContent().replace("\r\n", "<br/>") %>
 			
 		</td>
 	</tr>
@@ -105,10 +106,17 @@ dao.close();
 
 <div class="row text-center" style="">
 	<!-- 각종 버튼 부분 -->
+	<%
+	if(session.getAttribute("USER_ID") != null &&
+	session.getAttribute("USER_ID").toString().equals(dto.getId())){
+	%>
 	<button type="button" class="btn btn-primary">수정하기</button>
-	<button type="button" class="btn btn-success">삭제하기</button>	
+	<button type="button" class="btn btn-success" onclick="isDelete();">삭제하기</button>	
+	<%
+	}
+	%>
 	<button type="button" class="btn btn-warning" 
-		onclick="location.href='ListSkin.jsp';">리스트보기</button>
+		onclick="location.href='sub01_list.jsp?<%=queryStr %>';">리스트보기</button>
 </div>
 </form> 
 
@@ -118,8 +126,23 @@ dao.close();
 		<%@ include file="../include/quick.jsp" %>
 	</div>
 
-
+		<form name="deleteFrm">
+			<input type="hidden" name="idx" value="<%=dto.getIdx() %>" />
+			<input type="hidden" name="bname" value="<%=bname %>" />
+		</form>
+		<script>
+			function isDelete(){
+				var c = confirm("삭제할까요?");
+				if(c){
+					var f = document.deleteFrm;
+					f.method = "post";
+					f.action = "DeleteProc.jsp";
+					f.submit();
+				}
+				
+			}
+		</script>
 	<%@ include file="../include/footer.jsp" %>
-	</center>
+	<!-- </center> -->
  </body>
 </html>

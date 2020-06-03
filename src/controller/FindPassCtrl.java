@@ -37,8 +37,7 @@ public class FindPassCtrl extends HttpServlet{
 		
 		System.out.println("result = " + result);
 		if(result.equals("fail")) {
-			System.out.println("실패시 진입");
-			//실패 내용 보내기
+			//일치하는 정보가 없으면.. result에 fail로 전송..
 		} else {
 			SMTPAuth smtp = new SMTPAuth();
 			
@@ -64,6 +63,7 @@ public class FindPassCtrl extends HttpServlet{
 			object.put("findPassResult", result);
 			out.print(object);
 			out.flush();
+			dao.close();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
