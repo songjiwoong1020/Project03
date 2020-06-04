@@ -6,6 +6,10 @@
 <%@ include file="../include/isFlag.jsp" %>
 <%@ include file="../include/global_head.jsp" %>
 <%
+if(bname.equals("notice") || bname.equals("calendar")){
+	JavascriptUtil.jsAlertBack("해당 게시판은 글쓰기를 할 수 없습니다.", out);
+	return;
+}
 String idx = request.getParameter("idx");
 BoardDAO dao = new BoardDAO(application);
 
@@ -22,7 +26,7 @@ dao.close();
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <body>
-	<!-- <center> -->
+	<center>
 	<div id="wrap">
 		<%@ include file="../include/top.jsp" %>
 
@@ -39,7 +43,7 @@ dao.close();
 				</div>
 				<div>
 
-<form action="EditProc.jsp" name="writeFrm" method="post"  >
+<form action="EditProc.jsp" name="writeFrm" method="post"  enctype="multipart/form-data">
 	<input type="hidden" name="bname" value="<%=bname%>"/>
 	<input type="hidden" name="idx" value="<%=dto.getIdx() %>"/>
 <table class="table table-bordered">

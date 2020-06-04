@@ -152,10 +152,10 @@ dao.close();
 <div class="row text-right" style="margin-left: 700px;">
 	<!-- 각종 버튼 부분 -->
 	<!-- <button type="reset" class="btn">Reset</button> -->
-		
+	<% if(!(bname.equals("notice") || bname.equals("calendar"))){ %>
 	<button type="button" class="btn btn-primary" 
 		onclick="location.href='sub01_write.jsp?bname=<%=bname %>';">글쓰기</button>
-				
+	<%} %>
 	<!-- <button type="button" class="btn btn-primary">수정하기</button>
 	<button type="button" class="btn btn-success">삭제하기</button>
 	<button type="button" class="btn btn-info">답글쓰기</button>

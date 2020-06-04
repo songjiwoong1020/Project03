@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/isLogin.jsp" %>
 <%@ include file="../include/isFlag.jsp" %>
+<%
+if(bname.equals("notice") || bname.equals("calendar")){
+	JavascriptUtil.jsAlertBack("해당 게시판은 글쓰기를 할 수 없습니다.", out);
+	return;
+}
+%>
 <%@ include file="../include/global_head.jsp" %>
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
@@ -12,7 +18,7 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <body>
-	<!-- <center> -->
+	<center>
 	<div id="wrap">
 		<%@ include file="../include/top.jsp" %>
 
@@ -29,7 +35,7 @@
 				</div>
 				<div>
 
-<form action="WriteProc.jsp" name="writeFrm" method="post"  >
+<form action="WriteProc.jsp" name="writeFrm" method="post" enctype="multipart/form-data" >
 	<input type="hidden" name="bname" value="<%=bname%>"/>
 <table class="table table-bordered">
 <colgroup>
@@ -56,7 +62,7 @@
 		<th class="text-center" 
 			style="vertical-align:middle;">첨부파일</th>
 		<td>
-			<input type="file" class="form-control" />
+			<input type="file" class="form-control" name="attachedfile"/>
 		</td>
 	</tr>
 </tbody>

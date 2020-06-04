@@ -81,24 +81,32 @@
 			<div class="main_con_center">
 				<p class="main_title"><img src="../images/main_title02.gif" alt="공지사항 NOTICE" /><a href="../space/sub01_list.jsp?bname=notice"><img src="../images/more.gif" alt="more" class="more_btn" /></a></p>
 				<ul class="main_board_list">
-					
-					<li><p><a href="">마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></p></li>
-					<li><a href="">마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></li>
-					<li><a href="">마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></li>
-					<li><a href="">마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></li>
+					<c:choose>
+						<c:when test="${empty noticeList}">
+							<li>입력된 게시글이 없습니다.</li>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${noticeList }" var="row">
+									<li><a href="../space/sub01_view.jsp?idx=${row.idx }&nowpage=1&bname=notice">${row.title}</a> <span>${row.postdate}</span></li>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</div>
 			<div class="main_con_right">
 				<p class="main_title"><img src="../images/main_title03.gif" alt="자유게시판 FREE BOARD" /><a href="../space/sub01_list.jsp?bname=freeboard"><img src="../images/more.gif" alt="more" class="more_btn" /></a></p>
 				<ul class="main_board_list">
-				<c:choose>
-					<c:when test="${noticeTitle1 eq "" }"></c:when>
-					<li><p><a href="">마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></p></li>
-					<li><a href="">마포 구립 장애인 직업재활센터 홈페이지마포 구립 장애인 직업재활센터 홈페이지마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></li>
-					<li><a href="">마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></li>
-					<li><a href="">마포 구립 장애인 직업재활센터 홈페이지</a><span>2012.01.26</span></li>
+					<c:choose>
+						<c:when test="${empty freeboardList}">
+							<li>입력된 게시글이 없습니다.</li>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${freeboardList }" var="row">
+									<li><a href="../space/sub01_view.jsp?idx=${row.idx }&nowpage=1&bname=freeboard">${row.title}</a> <span>${row.postdate}</span></li>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</ul>
-				</c:choose>
 			</div>
 		</div>
 

@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Vector;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -23,14 +24,37 @@ public class MainCtrl extends HttpServlet{
 		/* 메인 화면에 출력할 용도로 모든 게시물을 다 받는건 낭비아닐까? */
 		List<BoardDTO> lists = dao.List(); 
 		
-/*		int Index = 0;
-		for(BoardDTO dto : list) {
-			if(dto.getBname().equals("notice")){
-				req.setAttribute("noticeTitle" + Index, dto.getTitle()); 
-				req.setAttribute("noticePostdate" + Index, dto.getPostdate().substring(0, 10));
+		/*req.setAttribute("lists", lists);*/
+		
+		/*
+		 * 모든 게시물을 담는 lists를 생성 후 게시글의 bname를 체크해서 구분해준다.
+		 * 필요한 게시판은 다시 리스트를 만들어줘서 그 리스트에는 내용이 최대 6개가
+		 * 담기도록 만들었다.  
+		 * 
+		 * 타이틀부분은 cut함수로 길이체크해서 넘어가면 잘라줘야하고
+		 * 날짜 부분은 시간부분을 서브스트링으로 잘라주고 -를 .으로 바꿔줘야한다.
+		 */
+		List<BoardDTO> noticeList = new Vector<BoardDTO>();
+		List<BoardDTO> freeboardList = new Vector<BoardDTO>();
+		int noticeIndex = 0;
+		int freeboardIndex = 0;
+		for(BoardDTO dto : lists) {
+			if(noticeIndex <= 5 && dto.getBname().equals("notice")){
+				dto.setTitle(cut(dto.getTitle()));
+				dto.setPostdate(dto.getPostdate().substring(0, 10).replace("-", "."));
+				noticeList.add(dto);
+				noticeIndex++;
+			}
+			if(freeboardIndex <= 5 && dto.getBname().equals("freeboard")){
+				dto.setTitle(cut(dto.getTitle()));
+				dto.setPostdate(dto.getPostdate().substring(0, 10).replace("-", "."));
+				freeboardList.add(dto);
+				freeboardIndex++;
 			}
 		}
-*/		req.setAttribute("lists", lists);
+		req.setAttribute("noticeList", noticeList);
+		req.setAttribute("freeboardList", freeboardList);
+
 		
 		
 		dao.close();
@@ -41,6 +65,14 @@ public class MainCtrl extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	}
+	
+	private static String cut(String text) {
+		if(text.length() > 20) {
+			text = text.substring(0, 20) + " ...";
+		}
+		
+		return text;
 	}
 	
 }

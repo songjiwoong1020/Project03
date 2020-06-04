@@ -97,7 +97,9 @@ dao.close();
 		<th class="text-center" 
 			style="vertical-align:middle;">첨부파일</th>
 		<td colspan="3">
+		<%if(!dto.getOfile().isEmpty()){ %>
 			<%=dto.getOfile() %>
+		<%} %>
 		</td>
 	</tr>
 </tbody>
