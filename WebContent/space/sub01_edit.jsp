@@ -71,7 +71,12 @@ dao.close();
 		<th class="text-center" 
 			style="vertical-align:middle;">첨부파일</th>
 		<td>
-			<input type="file" class="form-control" />
+			<%if(!(dto.getOfile() == null && dto.getSfile() == null)){ %>
+				<div id="file"><%=dto.getOfile() %> &nbsp;&nbsp;&nbsp;<button id='remove' type="button">[삭제]</button>
+				<input type="hid den" name="stayFile" value="stayFile" /></div>
+			<%} else { %>
+				<input type="file" class="form-control" name="attachedfile"/>
+			<%} %>
 		</td>
 	</tr>
 </tbody>
@@ -114,6 +119,10 @@ $(function(){
 			  return false;
 		  }
 	  });
+	  $('#remove').click(function(){
+		  $('#file').html('<input type="file" class="form-control" name="attachedfile"/>');
+	  });
 });
+
 </script>
 </html>

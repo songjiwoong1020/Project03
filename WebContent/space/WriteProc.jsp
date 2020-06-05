@@ -8,43 +8,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/isLogin.jsp" %>
-<%@ include file="../include/isFlag.jsp" %>
 <%
 request.setCharacterEncoding("UTF-8");
 
+String bname = null;
+String title = null;
+String content = null;
+String fileName = null;
 
+File oldFile = null;
+File newFile = null;
+String realFileName = null;
 
-
-MultipartRequest mr = FileUtil.upload(request, request.getServletContext().getRealPath("/Upload"));
-
+MultipartRequest mr = FileUtil.upload(request, request.getServletContext().getRealPath("/upload"));
+System.out.println("mr=" + mr);
 int sucOrFail;
 
 if(mr != null){
-	String title = mr.getParameter("title");
-	String content = mr.getParameter("content");
-	String fileName = mr.getParameter("attachedfile");
+	bname = mr.getParameter("bname");
+	title = mr.getParameter("title");
+	content = mr.getParameter("content");
+	fileName = mr.getFilesystemName("attachedfile");
 	
-	File oldFile = null;
-	File newFile = null;
-	String realFileName = null;
 	
 	String nowTime = new SimpleDateFormat("yyyy_mm_dd_H_m_s_S").format(new Date());
 	
 	int idx = -1;
 	
-	idx = fileName.lastIndexOf(".");
-	realFileName = nowTime + fileName.substring(idx, fileName.length());
-	
-	oldFile = new File(request.getServletContext().getRealPath("/Upload") + oldFile.separator + fileName);
-	newFile = new File(request.getServletContext().getRealPath("/Upload") + oldFile.separator + realFileName);
-	
-	oldFile.renameTo(newFile);
-	
 	BoardDTO dto = new BoardDTO();
+
+	System.out.println("fileName=" + fileName);
+	if(fileName != null){
+		idx = fileName.lastIndexOf(".");
+		
+		realFileName = nowTime + fileName.substring(idx, fileName.length());
+		System.out.println("realFileName=" + realFileName);
+		
+		oldFile = new File(request.getServletContext().getRealPath("/upload") + oldFile.separator + fileName);
+		newFile = new File(request.getServletContext().getRealPath("/upload") + oldFile.separator + realFileName);
+		System.out.println("oldFile=" + oldFile);
+		System.out.println("newFile=" + newFile);
+		
+		oldFile.renameTo(newFile);
+		dto.setOfile(mr.getOriginalFileName("attachedfile"));
+		dto.setSfile(realFileName);
+	} else {
+		dto.setOfile(null);
+		dto.setSfile(null);
+	}
+
+	
 	dto.setTitle(title);
 	dto.setContent(content);
-	dto.setOfile(mr.getOriginalFileName("attachedfile"));
-	dto.setSfile(realFileName);
 
 	dto.setId(session.getAttribute("USER_ID").toString());
 	dto.setBname(bname);

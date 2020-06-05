@@ -235,6 +235,30 @@ public class BoardDAO {
 	}
 	
 	public int updateEdit(BoardDTO dto) {
+		System.out.println("updateEdit함수 진입");
+		int affected = 0;
+		try {
+			String query = "UPDATE multi_board SET title = ?, content = ?, Sfile = ?, Ofile = ? WHERE idx = ?";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getContent());
+			psmt.setString(3, dto.getSfile());
+			psmt.setString(4, dto.getOfile());
+			psmt.setString(5, dto.getIdx());
+			
+			affected = psmt.executeUpdate();
+		}
+		catch (Exception e) {
+			System.out.println("BoardDAO updateEdit함수에서 예외발생");
+			e.printStackTrace();
+		}
+		System.out.println("dao안에서 affected:" + affected);
+		return affected;
+	}
+	
+	public int updateEditNoFile(BoardDTO dto) {
+		System.out.println("updateEditNoFile함수 진입");
 		int affected = 0;
 		try {
 			String query = "UPDATE multi_board SET title = ?, content = ? WHERE idx = ?";
@@ -251,6 +275,7 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 		
+		System.out.println("dao안에서 affected:" + affected);
 		return affected;
 	}
 

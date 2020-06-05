@@ -54,7 +54,7 @@ if(bname.equals("notice") || bname.equals("calendar")){
 		<th class="text-center" 
 			style="vertical-align:middle;">내용</th>
 		<td>
-			<textarea id="summernote" name="content">Hello Summernote</textarea>
+			<textarea id="summernote" name="content"></textarea>
 			<!-- <textarea rows="10" class="form-control" name="content"></textarea> -->
 		</td>
 	</tr>
@@ -87,24 +87,67 @@ if(bname.equals("notice") || bname.equals("calendar")){
 	</center>
 <script>
 $(function(){
-	  $('#summernote').summernote({
-		  height: 300,
-		  minHeight: null,
-		  maxHeight: null,
-		  lang : 'ko-KR'
-	  });
-	  $("button[type='submit']").click(function(){
-		  if($('input[name=title]').val() == ""){
-			  alert('제목을 작성해주세요');
-			  $('input[name=title]').focus();
-			  return false;
-		  }
-		  if($('textarea').val() == ""){
-			  alert('내용을 작성해주세요');
-			  $('textarea').focus();
-			  return false;
-		  }
-	  });
+	$('#summernote').summernote({
+		height: 300,
+		minHeight: null,
+		maxHeight: null,
+		lang : 'ko-KR',
+ 		callbacks: {
+			onImageUpload: function(files, editor, $editable) {
+               	sendFile(files[0], editor, $editable);
+			
+	        }
+	    }
+	});
+	
+	$('#summernote').summernote('insertText', 'Hello, world123123');
+	
+	$("button[type='submit']").click(function(){
+		if($('input[name=title]').val() == ""){
+			alert('제목을 작성해주세요');
+			$('input[name=title]').focus();
+			return false;
+		}
+		if($('textarea').val() == ""){
+			alert('내용을 작성해주세요');
+			$('textarea').focus();
+			return false;
+		}
+	});
+
+
+	function sendFile(file, editor, welEditable){
+		data = new FormData();
+		data.append("file", file);
+		$.ajax({
+			data : data,
+			type : "POST",
+			url : "./summernote_imageUpload.jsp",
+			dataType : "json",
+			cache : false,
+			contentType : false,
+			processData : false,
+			enctype: 'multipart/form-data',
+			success : function(data){
+				alert(data.url);
+				$('#summernote').summernote('insertImage', data.url)
+			},
+			error : function(data){
+				alert('실패');
+				console.log(data);
+			}
+		});
+	}
 });
 </script>
 </html>
+
+
+
+
+
+
+
+
+
+

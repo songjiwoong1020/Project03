@@ -1,3 +1,6 @@
+<%@page import="util.FileUtil"%>
+<%@page import="com.sun.corba.se.impl.javax.rmi.CORBA.Util"%>
+<%@page import="java.net.URLEncoder"%>
 <%@page import="model.BoardDAO"%>
 <%@page import="model.BoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -97,8 +100,8 @@ dao.close();
 		<th class="text-center" 
 			style="vertical-align:middle;">첨부파일</th>
 		<td colspan="3">
-		<%if(!dto.getOfile().isEmpty()){ %>
-			<%=dto.getOfile() %>
+		<%if(!(dto.getOfile() == null && dto.getSfile() == null)){ %>
+			<a href="Download.jsp?ofilename=<%=dto.getOfile()%>&sfilename=<%=dto.getSfile()%>"><%=dto.getOfile() %> [다운로드]</a>
 		<%} %>
 		</td>
 	</tr>

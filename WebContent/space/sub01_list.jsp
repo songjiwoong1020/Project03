@@ -30,9 +30,7 @@ if(searchWord != null){
 }
 
 int totalRecordCount = dao.getTotalRecordCount(param);
-System.out.println("totalRecordCount=" + totalRecordCount);
 
-//일단 이렇게 하고 나중에 ajax로 유동적으로 처리 해보자
 int pageSize = 10;
 int blockPage = 5;
 
