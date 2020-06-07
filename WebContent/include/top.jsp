@@ -33,7 +33,7 @@
 		<area shape="rect" alt="" title="" coords="193,0,316,33" href="../product/sub01.jsp" target="" />
 		<area shape="rect" alt="" title="" coords="321,0,420,33" href="../market/sub01.jsp" target="" />
 		<area shape="rect" alt="" title="" coords="428,0,529,33" href="../space/sub01_list.jsp?bname=notice" target="" />
-		<area shape="rect" alt="" title="" coords="536,0,638,33" href="../community/sub01.jsp" target="" />
+		<area shape="rect" alt="" title="" coords="536,0,638,33" href="../community/community.do?bname=staffDataroom" target="" />
 		<area shape="rect" alt="" title="" coords="641,0,749,33" href="../volunteer/sub01.jsp" target="" />
 	</map>
 	

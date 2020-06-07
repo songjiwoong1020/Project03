@@ -129,6 +129,7 @@ public class BoardDAO {
 				dto.setBname(rs.getString("bname"));
 				dto.setOfile(rs.getString("ofile"));
 				dto.setSfile(rs.getString("sfile"));
+				dto.setThumbnail(rs.getString("thumbnail"));
 				
 				bbs.add(dto);
 			}
@@ -198,8 +199,8 @@ public class BoardDAO {
 		int affected = 0;
 		
 		try {
-			String query = "INSERT INTO multi_board (title, content, id, visitcount, bname, ofile, sfile)"
-					+ "VALUES(?, ?, ?, 0, ?, ?, ?)";
+			String query = "INSERT INTO multi_board (title, content, id, visitcount, bname, ofile, sfile, thumbnail)"
+					+ "VALUES(?, ?, ?, 0, ?, ?, ?, ?)";
 			
 			psmt = con.prepareStatement(query);
 			psmt.setString(1, dto.getTitle());
@@ -208,6 +209,7 @@ public class BoardDAO {
 			psmt.setString(4, dto.getBname());
 			psmt.setString(5, dto.getOfile());
 			psmt.setString(6, dto.getSfile());
+			psmt.setString(7, dto.getThumbnail());
 			
 			affected = psmt.executeUpdate();
 		}

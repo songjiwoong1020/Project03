@@ -115,6 +115,25 @@
   	<url-pattern>/member/FindPass.do</url-pattern>
   </servlet-mapping>
   
+  <!-- 커뮤니티 매핑 -->
+  <servlet>
+  	<servlet-name>CommunityController</servlet-name>
+  	<servlet-class>controller.CommunityCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CommunityController</servlet-name>
+  	<url-pattern>/community/community.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 커뮤니티 글쓰기 매핑 -->
+  <servlet>
+  	<servlet-name>CommunityWriteController</servlet-name>
+  	<servlet-class>controller.CommunityWriteCtrl</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CommunityWriteController</servlet-name>
+  	<url-pattern>/community/communityWrite.do</url-pattern>
+  </servlet-mapping>
   
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

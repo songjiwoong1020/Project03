@@ -15,13 +15,14 @@ String bname = null;
 String title = null;
 String content = null;
 String fileName = null;
+String thumbnail = null;
 
 File oldFile = null;
 File newFile = null;
 String realFileName = null;
 
 MultipartRequest mr = FileUtil.upload(request, request.getServletContext().getRealPath("/upload"));
-System.out.println("mr=" + mr);
+//System.out.println("mr=" + mr);
 int sucOrFail;
 
 if(mr != null){
@@ -29,6 +30,8 @@ if(mr != null){
 	title = mr.getParameter("title");
 	content = mr.getParameter("content");
 	fileName = mr.getFilesystemName("attachedfile");
+	thumbnail = mr.getParameter("thumbnail");
+	System.out.println("thumbnail=" + thumbnail);
 	
 	
 	String nowTime = new SimpleDateFormat("yyyy_mm_dd_H_m_s_S").format(new Date());
@@ -60,6 +63,7 @@ if(mr != null){
 	
 	dto.setTitle(title);
 	dto.setContent(content);
+	dto.setThumbnail(thumbnail);
 
 	dto.setId(session.getAttribute("USER_ID").toString());
 	dto.setBname(bname);

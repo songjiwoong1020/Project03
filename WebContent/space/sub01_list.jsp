@@ -30,8 +30,14 @@ if(searchWord != null){
 }
 
 int totalRecordCount = dao.getTotalRecordCount(param);
-
-int pageSize = 10;
+int pageSize;
+if(bname.equals("photo")){
+	pageSize = 8;
+} else if(bname.equals("calendar")){
+	pageSize = 10;
+} else {
+	pageSize = 10;
+}
 int blockPage = 5;
 
 int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
@@ -45,7 +51,6 @@ param.put("start", start);
 param.put("end", end);
 
 List<BoardDTO> bbs = dao.selectListPage(param);
-
 
 dao.close();
 %>
@@ -90,60 +95,120 @@ dao.close();
 </div>
 <div class="row">
 	<!-- 게시판리스트부분 -->
-	<table class="table table-bordered table-hover">
-	<colgroup>
-		<col width="80px"/>
-		<col width="*"/>
-		<col width="120px"/>
-		<col width="120px"/>
-		<col width="80px"/>
-		<col width="50px"/>
-	</colgroup>
-	
-	<thead>
-	<tr class="success">
-		<th class="text-center">번호</th>
-		<th class="text-left">제목</th>
-		<th class="text-center">작성자</th>
-		<th class="text-center">작성일</th>
-		<th class="text-center">조회수</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	<!-- 리스트반복 -->
-	<%
-	if(bbs.isEmpty()){
+	<%if(bname.equals("photo")){ %>
+		<table class="table" style="table-layout: fixed;">
+	<%	
+		if(bbs.isEmpty()){
 	%>
 			<tr>
-				<td colspan="5" align="center" height="100">
-					등록된 게시물이 없습니다.
-				</td>
+				<td>등록된 게시글이 없습니다</td>
 			</tr>
 	<%
-	} else {
-		int vNum = 0;
-		int countNum = 0;
-		
-		for(BoardDTO dto : bbs){
-			vNum = totalRecordCount - (((nowPage-1) * pageSize) + countNum++);
+		} else {
+			int count = 0;
 	%>
 			<tr>
-				<td class="text-center"><%=vNum %></td>
-				<td class="text-left">
-					<a href="sub01_view.jsp?idx=<%=dto.getIdx()%>
-					&nowPage=<%=nowPage%>&<%=queryStr%>">
-					<%=dto.getTitle() %>
-					</a>
-				</td>
-				<td class="text-center"><%=dto.getId() %></td>
-				<td class="text-center"><%=dto.getPostdate().substring(0, 10)%></td>
-				<td class="text-center"><%=dto.getVisitcount() %></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
 			</tr>
+			<%
+			for(BoardDTO dto : bbs){ 
+				if(count == 0){
+				%>
+					<tr>
+				<%
+				}
+				count++;
+				%>
+					<td>
+						<a href="sub01_view.jsp?idx=<%=dto.getIdx()%>
+							&nowPage=<%=nowPage%>&<%=queryStr%>">
+						<img style="width: 170px; height: 150px; " alt="<%=dto.getThumbnail()%>" src="<%=dto.getThumbnail()%>">
+						</a>
+						<br/>
+						<div style="font-size: 1.2em; height: 20px; text-align: center; border-top: 1px solid gray; margin-top: 4px;">
+							<a href="sub01_view.jsp?idx=<%=dto.getIdx()%>
+								&nowPage=<%=nowPage%>&<%=queryStr%>"><%=dto.getTitle() %></a>
+						</div>
+						<div style="color: gray; height: 20px; text-align: center; border-top: 1px solid gray;">
+						<%=dto.getId() %> | <%=dto.getPostdate().substring(0, 10) %> | <%=dto.getVisitcount() %>
+						</div>
+					</td>
+				<%
+				
+				if(count == 4){
+					count = 0;
+				%>
+					</tr>
+				<%	
+				}
+				%>
 	<%
-		}
+			}
 	}
 	%>
+		</table>
+	<%
+	} else if(bname.equals("calendar")){ 
+	} else { 
+	%>
+		<table class="table table-bordered table-hover">
+		<colgroup>
+			<col width="80px"/>
+			<col width="*"/>
+			<col width="120px"/>
+			<col width="120px"/>
+			<col width="80px"/>
+			<col width="50px"/>
+		</colgroup>
+		
+		<thead>
+		<tr class="success">
+			<th class="text-center">번호</th>
+			<th class="text-left">제목</th>
+			<th class="text-center">작성자</th>
+			<th class="text-center">작성일</th>
+			<th class="text-center">조회수</th>
+		</tr>
+		</thead>
+		
+		<tbody>
+		<!-- 리스트반복 -->
+		<%
+		if(bbs.isEmpty()){
+		%>
+				<tr>
+					<td colspan="5" align="center" height="100">
+						등록된 게시물이 없습니다.
+					</td>
+				</tr>
+		<%
+		} else {
+			int vNum = 0;
+			int countNum = 0;
+			
+			for(BoardDTO dto : bbs){
+				vNum = totalRecordCount - (((nowPage-1) * pageSize) + countNum++);
+		%>
+				<tr>
+					<td class="text-center"><%=vNum %></td>
+					<td class="text-left">
+						<a href="sub01_view.jsp?idx=<%=dto.getIdx()%>
+						&nowPage=<%=nowPage%>&<%=queryStr%>">
+						<%=dto.getTitle() %>
+						</a>
+					</td>
+					<td class="text-center"><%=dto.getId() %></td>
+					<td class="text-center"><%=dto.getPostdate().substring(0, 10)%></td>
+					<td class="text-center"><%=dto.getVisitcount() %></td>
+				</tr>
+		<%
+			}
+		}
+	}
+		%>
 	</tbody>
 	</table>
 </div>
@@ -154,11 +219,6 @@ dao.close();
 	<button type="button" class="btn btn-primary" 
 		onclick="location.href='sub01_write.jsp?bname=<%=bname %>';">글쓰기</button>
 	<%} %>
-	<!-- <button type="button" class="btn btn-primary">수정하기</button>
-	<button type="button" class="btn btn-success">삭제하기</button>
-	<button type="button" class="btn btn-info">답글쓰기</button>
-	<button type="button" class="btn btn-warning">리스트보기</button>
-	<button type="submit" class="btn btn-danger">전송하기</button> -->
 </div>
 <div class="row mt-3">
 	<div class="col">

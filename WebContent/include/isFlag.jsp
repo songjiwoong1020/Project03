@@ -32,6 +32,14 @@ case "dataroom":
 	boardTitle = "정보자료실";
 	imgSrc ="../images/space/sub05_title.gif";
 	break;
+case "staffDataroom":
+	boardTitle = "직원자료실";
+	imgSrc ="../images/community/sub01_title.gif";
+	break;
+case "guardian":
+	boardTitle = "보호자게시판";
+	imgSrc ="../images/community/sub02_title.gif";
+	break;
 }
 %>
 	

@@ -26,7 +26,7 @@ public class FileUtil {
 		 */
 		//최대용량: 1024*1024 = 1MB
 		try {
-			mr = new MultipartRequest(req, saveDirectory, 1024*1024, "UTF-8", new DefaultFileRenamePolicy());
+			mr = new MultipartRequest(req, saveDirectory, 1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
 		}
 		catch (Exception e) {
 			e.printStackTrace();

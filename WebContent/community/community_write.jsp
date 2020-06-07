@@ -26,7 +26,7 @@ if(bname.equals("notice") || bname.equals("calendar")){
 
 		<div class="contents_box">
 			<div class="left_contents">
-				<%@ include file = "../include/space_leftmenu.jsp" %>
+				<%@ include file = "../include/community_leftmenu.jsp" %>
 			</div>
 			<div class="right_contents">
 				<div class="top_title">
@@ -35,7 +35,7 @@ if(bname.equals("notice") || bname.equals("calendar")){
 				</div>
 				<div>
 
-<form action="WriteProc.jsp" name="writeFrm" method="post" enctype="multipart/form-data" >
+<form action="../community/communityWrite.do?bname=<%=bname %>';" name="writeFrm" method="post" enctype="multipart/form-data" >
 	<input type="hidden" name="bname" value="<%=bname%>"/>
 <table class="table table-bordered">
 <colgroup>
@@ -74,7 +74,7 @@ if(bname.equals("notice") || bname.equals("calendar")){
 	
 	<button type="submit" class="btn btn-danger" >전송하기</button>
 	<button type="reset" class="btn">Reset</button>
-	<button type="button" class="btn btn-warning"  onclick="location.href='sub01_list.jsp?bname=<%=bname %>';">리스트보기</button>
+	<button type="button" class="btn btn-warning"  onclick="location.href='community.do?bname=<%=bname %>';">리스트보기</button>
 </div>
 </form>
 				</div>

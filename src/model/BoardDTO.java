@@ -12,13 +12,23 @@ public class BoardDTO {
     private String ofile;
     private String sfile;
     
+    
+    
     private String email;
+    private String thumbnail;
+    
     
     public String getEmail() {
     	return email;
     }
     public void setEmail(String email) {
     	this.email = email;
+    }
+    public String getThumbnail() {
+    	return thumbnail;
+    }
+    public void setThumbnail(String thumbnail) {
+    	this.thumbnail = thumbnail;
     }
     
     

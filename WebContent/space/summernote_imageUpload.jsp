@@ -10,7 +10,7 @@
 		경로 처리만 해주면 될거같음.
 		내가 경로에 대해서 하나도 모르는거같다.
 	*/
-	String uploadPath = request.getSession().getServletContext().getRealPath("summernoteImg");
+	String uploadPath = request.getSession().getServletContext().getRealPath("/summernoteImg");
 	int size = 10 * 1024 * 1024;
 	System.out.println(uploadPath);
 	
@@ -25,7 +25,7 @@
 		e.printStackTrace();
 	}
 	
-	uploadPath = uploadPath + "/" + fileName;
+	uploadPath = request.getContextPath() + "/summernoteImg/" + fileName;
 	System.out.println(uploadPath);
 	
 	JSONObject object = new JSONObject();
@@ -33,4 +33,6 @@
 	
 	response.setContentType("application/json");
 	out.print(object);
+	
+	
 %>
