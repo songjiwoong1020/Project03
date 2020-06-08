@@ -98,7 +98,7 @@ public class CommunityWriteCtrl extends HttpServlet{
 			sucOrFail = -1;
 		}
 		if(sucOrFail == 1){
-			response.sendRedirect("community_list.jsp?bname=" + bname);
+			response.sendRedirect("../community/community.do?bname=" + bname);
 		} else {
 			request.getRequestDispatcher("/community_write.jsp?bname=" + bname)
 			.forward(request,response);

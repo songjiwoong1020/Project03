@@ -36,24 +36,33 @@ public class MainCtrl extends HttpServlet{
 		 */
 		List<BoardDTO> noticeList = new Vector<BoardDTO>();
 		List<BoardDTO> freeboardList = new Vector<BoardDTO>();
+		List<BoardDTO> photoList = new Vector<BoardDTO>();
 		int noticeIndex = 0;
 		int freeboardIndex = 0;
+		int photoIndex = 0;
 		for(BoardDTO dto : lists) {
 			if(noticeIndex <= 5 && dto.getBname().equals("notice")){
-				dto.setTitle(cut(dto.getTitle()));
+				dto.setTitle(cut(dto.getTitle(), 20));
 				dto.setPostdate(dto.getPostdate().substring(0, 10).replace("-", "."));
 				noticeList.add(dto);
 				noticeIndex++;
 			}
 			if(freeboardIndex <= 5 && dto.getBname().equals("freeboard")){
-				dto.setTitle(cut(dto.getTitle()));
+				dto.setTitle(cut(dto.getTitle(), 20));
 				dto.setPostdate(dto.getPostdate().substring(0, 10).replace("-", "."));
 				freeboardList.add(dto);
 				freeboardIndex++;
 			}
+			if(photoIndex <= 5 && dto.getBname().equals("photo")){
+				dto.setTitle(cut(dto.getTitle(), 8));
+				photoList.add(dto);
+				photoIndex++;
+			}
+			
 		}
 		req.setAttribute("noticeList", noticeList);
 		req.setAttribute("freeboardList", freeboardList);
+		req.setAttribute("photoList", photoList);
 
 		
 		
@@ -67,9 +76,9 @@ public class MainCtrl extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	}
 	
-	private static String cut(String text) {
-		if(text.length() > 20) {
-			text = text.substring(0, 20) + " ...";
+	private static String cut(String text, int size) {
+		if(text.length() > size) {
+			text = text.substring(0, size) + " ...";
 		}
 		
 		return text;

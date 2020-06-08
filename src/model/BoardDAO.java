@@ -17,6 +17,8 @@ public class BoardDAO {
 	ResultSet rs;
 	
 	//생성자. DB연동함.
+	
+	
 	public BoardDAO(ServletContext ctx){
 		try {
 			Class.forName(ctx.getInitParameter("MariaJDBCDriver"));
@@ -30,6 +32,20 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 	}
+	
+/*	public BoardDAO(ServletContext ctx){
+		try {
+			Class.forName(ctx.getInitParameter("MariaJDBCDriver"));
+			String id = "songjiwoong1020";
+			String pw = "";
+			con = DriverManager.getConnection(ctx.getInitParameter("MariaConnectURLServer"), id, pw);
+			//System.out.println("MariaDB연결 성공");
+		}
+		catch(Exception e) {
+			System.out.println("MariaDB연결 실패");
+			e.printStackTrace();
+		}
+	}*/
 	//자원반납
 	public void close() {
 		try {
@@ -65,6 +81,7 @@ public class BoardDAO {
 				dto.setBname(rs.getString("bname"));
 				dto.setOfile(rs.getString("ofile"));
 				dto.setSfile(rs.getString("sfile"));
+				dto.setThumbnail(rs.getString("thumbnail"));
 				
 				bbs.add(dto);
 			}

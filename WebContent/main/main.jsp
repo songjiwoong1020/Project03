@@ -1,3 +1,4 @@
+<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,6 +12,83 @@
 @import url("../css/main.css");
 @import url("../css/sub.css");
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+	$(function(){
+		//메인페이지를 로드 할때 현재월을 출력하는 달력 가져오기
+		$('#calendar_view').load('../include/Calendar.jsp');
+		//이전달을 콜백받음
+		$('#month_prev').click(function(){
+			var n_year = parseInt($('#now_year').val());
+			var n_month = parseInt($('#now_month').val());
+
+			if(n_month == 0){
+				n_year--;
+				n_month=11;
+			} else {
+				n_month--;
+			}
+
+			$('#now_year').val(n_year);
+			$('#now_month').val(n_month);
+			$('#calendar_n_viwe').html(n_year+ "년 " + (n_month+1) + '월');
+
+			$.get('../include/Calendar.jsp',
+				{
+					y : n_year,
+					m : n_month
+				},
+				function(d){
+					$('#calendar_view').html(d);
+				}
+			);
+		});
+		//다음달을 콜백받음
+		$('#month_next').click(function(){
+			var n_year = parseInt($('#now_year').val());
+			var n_month = parseInt($('#now_month').val());
+
+			if(n_month == 11){
+				n_year++;
+				n_month=0;
+			} else {
+				n_month++;
+			}
+
+			$('#now_year').val(n_year);
+			$('#now_month').val(n_month);
+			$('#calendar_n_viwe').html(n_year+ "년 " + (n_month+1) + '월');
+
+			$.ajax({
+				url : "../include/Calendar.jsp",
+				dataType : "html",
+				type : "post",
+				contentType : "application/x-www-form-urlencoded;charset=utf-8",
+				data : {
+					y : n_year, m : n_month
+				},
+				success:function(responseData){
+					$('#calendar_view').html(responseData);
+				},
+				error:function(errorData){
+					alert("오류발생:" + errorData.status+":"+errorData.statusText)
+				}
+			});
+		});
+
+		
+		
+	});
+</script>
+<%
+//켈린더 클래스로 현재 년/월 구하기
+Calendar nowDay = Calendar.getInstance();
+int now_year = nowDay.get(Calendar.YEAR);
+int now_month = nowDay.get(Calendar.MONTH);
+%>
+<input type="hidden" id="now_year" value="<%=now_year %>" />
+<!-- Calendar클래스의 월은 0~11까지 표현된다. -->
+<input type="hidden" id="now_month" value="<%=now_month %>" />
 <!-- 
 	메인화면에서 회원가입 성공시 세션영역에 SUCCESS_SIGNUP이라는 키값으로 경고창을 저장한다.
 	세션영역이기때문에 한번 실행하면 지워줘야하니까 SUCCESS_SIGNUP이 빈값이 아닐때 지워준다.
@@ -125,14 +203,22 @@
 							<col width="13px;" />
 						</colgroup>
 						<tr>
-							<td><a href=""><img src="../images/cal_a01.gif" style="margin-top:3px;" /></a></td>
-							<td><img src="../images/calender_2012.gif" />&nbsp;&nbsp;<img src="../images/calender_m1.gif" /></td>
-							<td><a href=""><img src="../images/cal_a02.gif" style="margin-top:3px;" /></a></td>
+							<!-- 이전달 보기 -->
+							<td>
+								<img src="../images/cal_a01.gif" style="margin-top:3px; cursor:pointer;" id="month_prev"/>
+							</td>
+							<!-- 년/월 표시 -->
+							<td style="font-weight: bold; font-size: 15px;" id="calendar_n_viwe">
+								2020년 06월
+							</td>
+							<!-- 다음달 보기 -->
+							<td><img src="../images/cal_a02.gif" style="margin-top:3px; cursor:pointer;" id="month_next"/></td>
 						</tr>
 					</table>
 				</div>
-				<div class="cal_bottom">
-					<table cellpadding="0" cellspacing="0" border="0" class="calendar">
+				<div class="cal_bottom" id="calendar_view">
+					<!-- 실제 달력이 출력되는 영역 -->
+					<%-- <table cellpadding="0" cellspacing="0" border="0" class="calendar">
 						<colgroup>
 							<col width="14%" />
 							<col width="14%" />
@@ -205,14 +291,27 @@
 							<td><a href="">&nbsp;</a></td>
 							<td><a href="">&nbsp;</a></td>
 						</tr>
-					</table>
+					</table> --%>
 				</div>
 			</div>
 			<div class="main_con_right">
 				<p class="main_title"><img src="../images/main_title06.gif" alt="사진게시판 PHOTO BOARD" /><a href="../space/sub01_list.jsp?bname=photo"><img src="../images/more.gif" alt="more" class="more_btn" /></a></p>
 				<ul class="main_photo_list">
+					<c:choose>
+						<c:when test="${empty photoList}">
+							<li>입력된 게시글이 없습니다.</li>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${photoList }" var="row">
+								<li>
+									<dt><a href="../space/sub01_view.jsp?idx=${row.idx }&nowpage=1&bname=photo"><img style="width: 95px; height: 63px;" src="${row.thumbnail }" alt="미리보기가 없습니다." /></a></dt>
+									<dd><a href="../space/sub01_view.jsp?idx=${row.idx }&nowpage=1&bname=photo">${row.title}</a></dd>
+								</li>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 					<li>
-						<dl>
+					<!-- <dl>
 							<dt><a href=""><img src="../images/g_img.gif" /></a></dt>
 							<dd><a href="">마포 구립 장애인...</a></dd>
 						</dl>
@@ -246,7 +345,7 @@
 							<dt><a href=""><img src="../images/g_img.gif" /></a></dt>
 							<dd><a href="">마포 구립 장애인...</a></dd>
 						</dl>
-					</li>
+					</li> -->
 				</ul>
 			</div>
 		</div>

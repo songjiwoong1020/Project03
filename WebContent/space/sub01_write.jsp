@@ -101,8 +101,6 @@ $(function(){
 	    }
 	});
 	
-	$('#summernote').summernote('insertText', 'Hello, world123123');
-	
 	$("button[type='submit']").click(function(){
 		if($('input[name=title]').val() == ""){
 			alert('제목을 작성해주세요');

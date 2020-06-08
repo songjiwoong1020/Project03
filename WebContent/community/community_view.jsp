@@ -35,7 +35,7 @@ dao.close();
 	<div id="wrap">
 		<%@ include file="../include/top.jsp" %>
 
-		<img src="../images/space/sub_image.jpg" id="main_visual" />
+		<img src="../images/community/sub_image.jpg" id="main_visual" />
 
 		<div class="contents_box">
 			<div class="left_contents">
@@ -121,7 +121,7 @@ dao.close();
 	}
 	%>
 	<button type="button" class="btn btn-warning" 
-		onclick="location.href='sub01_list.jsp?<%=queryStr %>';">리스트보기</button>
+		onclick="location.href='./community.do?bname=${param.bname }&nowPage=${param.nowPage}&searchColumn=${param.searchColumn}&searchWord=${param.searchWord}';">리스트보기</button>
 </div>
 </form> 
 

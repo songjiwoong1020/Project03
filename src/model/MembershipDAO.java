@@ -18,6 +18,7 @@ public class MembershipDAO {
 	ResultSet rs;
 	
 	//생성자. DB연동함.
+	
 	public MembershipDAO(ServletContext ctx){
 		try {
 			Class.forName(ctx.getInitParameter("MariaJDBCDriver"));
@@ -31,6 +32,20 @@ public class MembershipDAO {
 			e.printStackTrace();
 		}
 	}
+	
+/*	public MembershipDAO(ServletContext ctx){
+		try {
+			Class.forName(ctx.getInitParameter("MariaJDBCDriver"));
+			String id = "songjiwoong1020";
+			String pw = "";
+			con = DriverManager.getConnection(ctx.getInitParameter("MariaConnectURLServer"), id, pw);
+			//System.out.println("MariaDB연결 성공");
+		}
+		catch(Exception e) {
+			System.out.println("MariaDB연결 실패");
+			e.printStackTrace();
+		}
+	}*/
 	//자원반납
 	public void close() {
 		try {

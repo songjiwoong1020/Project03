@@ -8,7 +8,7 @@
 	<div id="wrap">
 		<%@ include file="../include/top.jsp" %>
 
-		<img src="../images/space/sub_image.jpg" id="main_visual" />
+		<img src="../images/community/sub_image.jpg" id="main_visual" />
 
 		<div class="contents_box">
 			<div class="left_contents">
@@ -36,8 +36,7 @@
 	<div class="input-group">
 		<input type="text" name="searchWord"  class="form-control"/>
 		<div class="input-group-btn">
-			<button type="submit" class="btn btn-default">
-				<i class="glyphicon glyphicon-search"></i>
+			<button type="submit" class="btn btn-success">검색
 			</button>
 		</div>
 	</div>
@@ -83,7 +82,7 @@
 						${map.totalCount - (((map.nowPage-1) * map.pageSize) + loop.index)}   
 					</td>
 					<td class="text-left">
-<a href="../DataRoom/DataView?idx=${row.idx }&nowPage=${param.nowPage }&searchColumn=${param.searchColumn }&searchWord=${param.searchWord }">${row.title }</a>
+<a href="../community/communityview.do?bname=${param.bname }&idx=${row.idx }&nowPage=${param.nowPage }&searchColumn=${param.searchColumn }&searchWord=${param.searchWord }">${row.title }</a>
 					</td>
 					<td class="text-center">${row.id }</td>
 					<td class="text-center">${row.postdate }</td>
@@ -102,17 +101,19 @@
 	</tbody>
 	</table>
 </div>
-<div class="row text-right" style="padding-right:50px;">
+<div class="row text-right" style="margin-left:700px;">
 	<!-- 각종 버튼 부분 -->
 	<!-- <button type="reset" class="btn">Reset</button> -->
 		
 	<button type="button" class="btn btn-primary" 
-		onclick="location.href='../community/communityWrite.do?bname=<%=bname %>';">글쓰기</button>
+		onclick="location.href='../community/communityWrite.do?bname=${param.bname}';">글쓰기</button>
 				
 </div>
 <div class="row text-center">
 	<!-- 페이지번호 부분 -->
-	${map.pagingImg }	
+	<div class="col">
+	${map.pagingImg }
+	</div>	
 </div>
 
 				</div>

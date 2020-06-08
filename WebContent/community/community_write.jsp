@@ -3,7 +3,7 @@
 <%@ include file="../include/isLogin.jsp" %>
 <%@ include file="../include/isFlag.jsp" %>
 <%
-if(bname.equals("notice") || bname.equals("calendar")){
+if(bname.equals("staffDataroom")){
 	JavascriptUtil.jsAlertBack("해당 게시판은 글쓰기를 할 수 없습니다.", out);
 	return;
 }
@@ -22,7 +22,7 @@ if(bname.equals("notice") || bname.equals("calendar")){
 	<div id="wrap">
 		<%@ include file="../include/top.jsp" %>
 
-		<img src="../images/space/sub_image.jpg" id="main_visual" />
+		<img src="../images/community/sub_image.jpg" id="main_visual" />
 
 		<div class="contents_box">
 			<div class="left_contents">
@@ -100,8 +100,6 @@ $(function(){
 	        }
 	    }
 	});
-	
-	$('#summernote').summernote('insertText', 'Hello, world123123');
 	
 	$("button[type='submit']").click(function(){
 		if($('input[name=title]').val() == ""){

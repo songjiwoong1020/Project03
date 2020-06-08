@@ -37,7 +37,7 @@ case "staffDataroom":
 	imgSrc ="../images/community/sub01_title.gif";
 	break;
 case "guardian":
-	boardTitle = "보호자게시판";
+	boardTitle = "보호자 게시판";
 	imgSrc ="../images/community/sub02_title.gif";
 	break;
 }
